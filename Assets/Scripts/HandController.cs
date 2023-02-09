@@ -36,7 +36,7 @@ public class HandController : MonoBehaviour
             cardPositions.Add(minPos.position + (distanceBetweenPoints * i));
 
             //heldCards[i].transform.position = cardPositions[i];
-            heldCards[i].transform.rotation = minPos.rotation;
+            //heldCards[i].transform.rotation = minPos.rotation;
 
             // this will set where the card should move to
             heldCards[i].MoveToPoint(cardPositions[i], minPos.rotation);
@@ -46,5 +46,17 @@ public class HandController : MonoBehaviour
         }
     }
 
-    
+    public void RemoveCardFromHand(Card cardToRemove)
+    {
+        if (heldCards[cardToRemove.handPosition] == cardToRemove)
+        {
+            heldCards.RemoveAt(cardToRemove.handPosition);
+        }
+        else
+        {
+            Debug.LogError("Card at position" + cardToRemove.handPosition + " is not the card being removed from hand");
+        }
+        
+        SetCardPositionsInHand();
+    }
 }
