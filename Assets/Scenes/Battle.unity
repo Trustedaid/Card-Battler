@@ -1946,6 +1946,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &381283023
 Transform:
   m_ObjectHideFlags: 0
@@ -2007,6 +2008,37 @@ Transform:
   - {fileID: 1232838118}
   m_Father: {fileID: 2041888972}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &405811036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405811037}
+  m_Layer: 0
+  m_Name: Battle Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405811037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405811036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &407417432
 GameObject:
@@ -9428,6 +9460,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &1236581283
 Transform:
   m_ObjectHideFlags: 0
@@ -9509,6 +9542,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &1249054810
 Transform:
   m_ObjectHideFlags: 0
@@ -11416,6 +11450,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &1356285557
 Transform:
   m_ObjectHideFlags: 0
@@ -11513,6 +11548,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!65 &1390314920
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12768,6 +12804,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &1470405066
 Transform:
   m_ObjectHideFlags: 0
@@ -14092,6 +14129,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &1618666888
 Transform:
   m_ObjectHideFlags: 0
@@ -16313,6 +16351,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &2001306590
 Transform:
   m_ObjectHideFlags: 0
@@ -16721,6 +16760,7 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 128
+  assignedPlace: {fileID: 0}
 --- !u!4 &2041888972
 Transform:
   m_ObjectHideFlags: 0
@@ -17175,7 +17215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094090159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.40203142, y: -2.3404245, z: 1.3343701}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

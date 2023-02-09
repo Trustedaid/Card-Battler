@@ -96,6 +96,9 @@ public class Card : MonoBehaviour
 
                         if (selectedPoint.activeCard == null && selectedPoint.isPlayerPoint)
                         {
+                            if (BattleController.instance.playerMana >= manaCost)
+                            {
+                                
                             selectedPoint.activeCard = this;
                             assignedPlace = selectedPoint;
                             
@@ -104,6 +107,14 @@ public class Card : MonoBehaviour
                             inHand = false;
                             isSelected = false;
                             theHC.RemoveCardFromHand(this);
+                            BattleController.instance.SpendPlayerMana(manaCost);
+                            
+                            }
+                            else
+                            {
+                                ReturnToHand();
+                                UIController.instance.ShowManaWarning();
+                            }
                         }
                         else
                         {
