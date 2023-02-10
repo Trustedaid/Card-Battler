@@ -15,6 +15,7 @@ public class BattleController : MonoBehaviour
     public int startingMana = 4;
     public int maxMana = 12;
     public int playerMana;
+    public int startingCardsAmount = 5;
 
 
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class BattleController : MonoBehaviour
     {
         playerMana = startingMana;
         UIController.instance.SetPlayerManaText(playerMana);
+        DeckController.instance.DrawMultipleCards((startingCardsAmount));
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class BattleController : MonoBehaviour
         {
             playerMana = 0;
         }
+
         UIController.instance.SetPlayerManaText(playerMana);
     }
 }

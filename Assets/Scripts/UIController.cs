@@ -8,16 +8,17 @@ public class UIController : MonoBehaviour
 {
     public static UIController instance;
 
+    public TMP_Text playerManaText;
     public GameObject manaWarning;
     public float manaWarningTime;
     private float manaWarningCounter;
+    public GameObject drawCardButton;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public TMP_Text playerManaText;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,10 @@ public class UIController : MonoBehaviour
     {
         manaWarning.SetActive(true);
         manaWarningCounter = manaWarningTime;
+    }
 
+    public void DrawCard()
+    {
+        DeckController.instance.DrawCardForMana();
     }
 }
