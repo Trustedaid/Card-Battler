@@ -88,37 +88,31 @@ public class Card : MonoBehaviour
                 ReturnToHand();
             }
 
-                if (Input.GetMouseButtonDown(0) && justPressed == false)
+            if (Input.GetMouseButtonDown(0) && justPressed == false)
+            {
+                if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement) && BattleController.instance.currentPhase ==
+                    BattleController.TurnOrder.playerActive)
                 {
-                    if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement))
-                    {
-                        CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
+                    CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
 
-                        if (selectedPoint.activeCard == null && selectedPoint.isPlayerPoint)
+                    if (selectedPoint.activeCard == null && selectedPoint.isPlayerPoint)
+                    {
+                        if (BattleController.instance.playerMana >= manaCost)
                         {
-                            if (BattleController.instance.playerMana >= manaCost)
-                            {
-                                
                             selectedPoint.activeCard = this;
                             assignedPlace = selectedPoint;
-                            
+
                             MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
 
                             inHand = false;
                             isSelected = false;
                             theHC.RemoveCardFromHand(this);
                             BattleController.instance.SpendPlayerMana(manaCost);
-                            
-                            }
-                            else
-                            {
-                                ReturnToHand();
-                                UIController.instance.ShowManaWarning();
-                            }
                         }
                         else
                         {
                             ReturnToHand();
+                            UIController.instance.ShowManaWarning();
                         }
                     }
                     else
@@ -126,6 +120,11 @@ public class Card : MonoBehaviour
                         ReturnToHand();
                     }
                 }
+                else
+                {
+                    ReturnToHand();
+                }
+            }
         }
 
         justPressed = false;
@@ -155,7 +154,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (inHand)
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
         {
             isSelected = true;
             theCol.enabled = false;
