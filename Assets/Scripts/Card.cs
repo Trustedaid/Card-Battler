@@ -11,6 +11,8 @@ public class Card : MonoBehaviour
 {
     public CardScriptableObject cardSO;
 
+    public bool isPlayer;
+
     public int currentHealth;
     public int attackPower;
     public int manaCost;
@@ -31,18 +33,28 @@ public class Card : MonoBehaviour
     private HandController theHC;
 
     private bool isSelected;
+
     private Collider theCol;
 
     public LayerMask whatIsDesktop;
     public LayerMask whatIsPlacement;
 
     private bool justPressed;
+
     public CardPlacePoint assignedPlace;
+
+    public Animator anim;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        if (targetPoint == Vector3.zero)
+        {
+            targetPoint = transform.position;
+            targetRot = transform.rotation;
+        }
+
         SetUpCard();
 
         theHC = FindObjectOfType<HandController>();
@@ -55,9 +67,10 @@ public class Card : MonoBehaviour
         attackPower = cardSO.attackPower;
         manaCost = cardSO.manaCost;
 
-        healthText.text = currentHealth.ToString();
-        attackText.text = attackPower.ToString();
-        costText.text = manaCost.ToString();
+        UpdateCardDisplay();
+        // healthText.text = currentHealth.ToString();
+        // attackText.text = attackPower.ToString();
+        // costText.text = manaCost.ToString();
 
         nameText.text = cardSO.cardName;
         actionDescriptionText.text = cardSO.actionDescription;
@@ -138,7 +151,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (inHand)
+        if (inHand && isPlayer)
         {
             MoveToPoint(theHC.cardPositions[handPosition] + new Vector3(0f, 1f, 0.5f), quaternion.identity);
         }
@@ -146,7 +159,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (inHand)
+        if (inHand && isPlayer)
         {
             MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
         }
@@ -154,11 +167,10 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer)
         {
             isSelected = true;
             theCol.enabled = false;
-
             justPressed = true;
         }
     }
@@ -169,5 +181,33 @@ public class Card : MonoBehaviour
         theCol.enabled = true;
 
         MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
+    }
+
+    public void DamageCard(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+
+            assignedPlace.activeCard = null;
+
+            MoveToPoint(BattleController.instance.discardPoint.position,
+                BattleController.instance.discardPoint.rotation);
+
+            anim.SetTrigger("Jump");
+            Destroy(gameObject, 5f);
+        }
+
+        anim.SetTrigger("Hurt");
+
+        UpdateCardDisplay();
+    }
+
+    public void UpdateCardDisplay()
+    {
+        healthText.text = currentHealth.ToString();
+        attackText.text = attackPower.ToString();
+        costText.text = manaCost.ToString();
     }
 }

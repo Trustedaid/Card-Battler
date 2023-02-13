@@ -20,17 +20,13 @@ public class BattleController : MonoBehaviour
     public int cardsToDrawPerTurn = 1;
 
 
-    public enum TurnOrder
-    {
-        playerActive,
-        playerCardAttacks,
-        enemyActive,
-        enemyCardAttacks
-    }
-
+    public enum TurnOrder { playerActive, playerCardAttacks, enemyActive, enemyCardAttacks }
     public TurnOrder currentPhase;
+    
+    public Transform discardPoint;
 
-
+    public int playerHealth, enemyHealth;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -92,8 +88,10 @@ public class BattleController : MonoBehaviour
                 break;
             
             case TurnOrder.playerCardAttacks:
-                Debug.Log("skipping player card attacks");
-                // AdvanceTurn();
+                // Debug.Log("skipping player card attacks");
+                // // AdvanceTurn();
+                
+                CardPointsController.instance.PlayerAttack();
                 break;
             
             case TurnOrder.enemyActive:
@@ -102,8 +100,11 @@ public class BattleController : MonoBehaviour
                 break;
             
             case TurnOrder.enemyCardAttacks:
-                Debug.Log("skipping enemy card attacks");
-                AdvanceTurn();
+                // Debug.Log("skipping enemy card attacks");
+                // AdvanceTurn();
+                
+                CardPointsController.instance.EnemyAttack();
+                
                 break;
         }
     }
@@ -114,5 +115,34 @@ public class BattleController : MonoBehaviour
         UIController.instance.drawCardButton.SetActive(false);
 
         AdvanceTurn();
+    }
+
+    public void DamagePlayer(int damageAmount)
+    {
+        if (playerHealth > 0)
+        {
+            playerHealth -= damageAmount;
+
+            if (playerHealth <= 0)
+            {
+                playerHealth = 0;
+            }
+            
+            // End Battle
+            
+        }
+    }
+
+    public void DamageEnemy(int damageAmount)
+    {
+        if (enemyHealth > 0)
+        {
+            enemyHealth -= damageAmount;
+
+            if (enemyHealth <= 0)
+            {
+                enemyHealth = 0;
+            }
+        }
     }
 }
