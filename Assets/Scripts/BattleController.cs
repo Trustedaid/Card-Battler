@@ -33,6 +33,9 @@ public class BattleController : MonoBehaviour
         currentPlayerMaxMana = startingMana;
         FillPlayerMana();
         DeckController.instance.DrawMultipleCards((startingCardsAmount));
+
+        UIController.instance.SetPlayerHealthText(playerHealth);
+        UIController.instance.SetEnemyHealthText(enemyHealth);
     }
 
     // Update is called once per frame
@@ -129,7 +132,12 @@ public class BattleController : MonoBehaviour
             }
             
             // End Battle
-            
+            UIController.instance.SetPlayerHealthText(playerHealth);
+
+            UIDamageIndicator damageClone = Instantiate(UIController.instance.playerDamage, UIController.instance.playerDamage.transform.parent);
+            damageClone.damageText.text = damageAmount.ToString();
+            damageClone.gameObject.SetActive(true);
+
         }
     }
 
@@ -143,6 +151,12 @@ public class BattleController : MonoBehaviour
             {
                 enemyHealth = 0;
             }
+            UIController.instance.SetEnemyHealthText(enemyHealth);
+            
+            UIDamageIndicator damageClone = Instantiate(UIController.instance.enemyDamage, UIController.instance.enemyDamage.transform.parent);
+            damageClone.damageText.text = damageAmount.ToString();
+            damageClone.gameObject.SetActive(true);
+            
         }
     }
 }
