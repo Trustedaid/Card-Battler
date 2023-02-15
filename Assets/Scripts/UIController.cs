@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
     private float manaWarningCounter;
     public GameObject drawCardButton, endTurnButton;
     public UIDamageIndicator playerDamage, enemyDamage;
+    public GameObject battleEndScreen;
+    public TMP_Text battleResultText;
 
     private void Awake()
     {
@@ -72,5 +74,20 @@ public class UIController : MonoBehaviour
     public void EndPlayerTurn()
     {
         BattleController.instance.EndPlayerTurn();
+    }
+
+    public void MainMenu()
+    {
+        
+    }
+
+    public void RestartLevel()
+    {
+        
+    }
+
+    public void ChooseNewBattle()
+    {
+        
     }
 }

@@ -8,7 +8,7 @@ public class UIDamageIndicator : MonoBehaviour
     public TMP_Text damageText;
 
     public float moveSpeed;
-    public float lifeTime = 3f;
+    public float lifeTime = 0.5f;
 
     private RectTransform myRect;
 
