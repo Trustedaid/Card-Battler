@@ -13,20 +13,22 @@ public class BattleController : MonoBehaviour
     }
 
     public int startingMana = 4, maxMana = 12;
-    public int playerMana;
-    private int currentPlayerMaxMana;
+    public int playerMana, enemyMana;
+    
+    private int currentPlayerMaxMana, currentEnemyMaxMana;
 
     public int startingCardsAmount = 5;
     public int cardsToDrawPerTurn = 1;
 
 
     public enum TurnOrder { playerActive, playerCardAttacks, enemyActive, enemyCardAttacks }
+
     public TurnOrder currentPhase;
-    
+
     public Transform discardPoint;
 
     public int playerHealth, enemyHealth;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,9 @@ public class BattleController : MonoBehaviour
 
         UIController.instance.SetPlayerHealthText(playerHealth);
         UIController.instance.SetEnemyHealthText(enemyHealth);
+
+        currentEnemyMaxMana = startingMana;
+        FillEnemyMana();
     }
 
     // Update is called once per frame
@@ -66,6 +71,24 @@ public class BattleController : MonoBehaviour
         UIController.instance.SetPlayerManaText(playerMana);
     }
 
+    public void SpendEnemyMana(int amountToSpend)
+    {
+        enemyMana -= amountToSpend;
+
+        if (enemyMana < 0)
+        {
+            enemyMana = 0;
+        }
+
+        UIController.instance.SetEnemyManaText(enemyMana);
+    }
+
+    public void FillEnemyMana()
+    {
+        enemyMana = currentEnemyMaxMana;
+        UIController.instance.SetEnemyManaText(enemyMana);
+    }
+
     public void AdvanceTurn()
     {
         currentPhase++;
@@ -79,35 +102,46 @@ public class BattleController : MonoBehaviour
             case TurnOrder.playerActive:
                 UIController.instance.endTurnButton.SetActive(true);
                 UIController.instance.drawCardButton.SetActive(true);
-                
+
                 if (currentPlayerMaxMana < maxMana)
                 {
                     currentPlayerMaxMana++;
                 }
+
                 FillPlayerMana();
-                
+
                 DeckController.instance.DrawMultipleCards(cardsToDrawPerTurn);
-                
+
                 break;
-            
+
             case TurnOrder.playerCardAttacks:
                 // Debug.Log("skipping player card attacks");
                 // // AdvanceTurn();
-                
+
                 CardPointsController.instance.PlayerAttack();
                 break;
-            
+
             case TurnOrder.enemyActive:
-                Debug.Log("skipping enemy actions");
-                AdvanceTurn();
+                // Debug.Log("skipping enemy actions");
+                // AdvanceTurn();
+
+                if (currentEnemyMaxMana < maxMana)
+                {
+                    currentEnemyMaxMana++;
+                }
+
+                FillEnemyMana();
+
+                EnemyController.instance.StartAction();
+
                 break;
-            
+
             case TurnOrder.enemyCardAttacks:
                 // Debug.Log("skipping enemy card attacks");
                 // AdvanceTurn();
-                
+
                 CardPointsController.instance.EnemyAttack();
-                
+
                 break;
         }
     }
@@ -130,14 +164,14 @@ public class BattleController : MonoBehaviour
             {
                 playerHealth = 0;
             }
-            
+
             // End Battle
             UIController.instance.SetPlayerHealthText(playerHealth);
 
-            UIDamageIndicator damageClone = Instantiate(UIController.instance.playerDamage, UIController.instance.playerDamage.transform.parent);
+            UIDamageIndicator damageClone = Instantiate(UIController.instance.playerDamage,
+                UIController.instance.playerDamage.transform.parent);
             damageClone.damageText.text = damageAmount.ToString();
             damageClone.gameObject.SetActive(true);
-
         }
     }
 
@@ -151,12 +185,12 @@ public class BattleController : MonoBehaviour
             {
                 enemyHealth = 0;
             }
+
             UIController.instance.SetEnemyHealthText(enemyHealth);
-            
+
             UIDamageIndicator damageClone = Instantiate(UIController.instance.enemyDamage, UIController.instance.enemyDamage.transform.parent);
             damageClone.damageText.text = damageAmount.ToString();
             damageClone.gameObject.SetActive(true);
-            
         }
     }
 }

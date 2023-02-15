@@ -64,7 +64,7 @@ public class HandController : MonoBehaviour
         {
             Debug.LogError("Card at position" + cardToRemove.handPosition + " is not the card being removed from hand");
         }
-        
+
         SetCardPositionsInHand();
     }
 

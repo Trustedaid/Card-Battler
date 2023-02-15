@@ -44,24 +44,22 @@ public class CardPointsController : MonoBehaviour
                 {
                     // Attack the enemy card
                     enemyCardPoints[i].activeCard.DamageCard(playerCardPoints[i].activeCard.attackPower);
-                    
-                    
                 }
                 else
                 {
                     BattleController.instance.DamageEnemy(playerCardPoints[i].activeCard.attackPower);
-                    
+
                     // Attack the enemy's overall health
                 }
 
                 playerCardPoints[i].activeCard.anim.SetTrigger("Attack");
-                
+
                 yield return new WaitForSeconds(timeBetweenAttacks);
             }
         }
 
         CheckAssignedCards();
-        
+
         BattleController.instance.AdvanceTurn();
     }
 
@@ -82,8 +80,6 @@ public class CardPointsController : MonoBehaviour
                 {
                     // Attack the player card
                     playerCardPoints[i].activeCard.DamageCard(enemyCardPoints[i].activeCard.attackPower);
-                    
-                    
                 }
                 else
                 {
@@ -92,13 +88,13 @@ public class CardPointsController : MonoBehaviour
                 }
 
                 enemyCardPoints[i].activeCard.anim.SetTrigger("Attack");
-                
+
                 yield return new WaitForSeconds(timeBetweenAttacks);
             }
         }
 
         CheckAssignedCards();
-        
+
         BattleController.instance.AdvanceTurn();
     }
 

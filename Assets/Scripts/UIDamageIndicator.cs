@@ -11,7 +11,7 @@ public class UIDamageIndicator : MonoBehaviour
     public float lifeTime = 3f;
 
     private RectTransform myRect;
-    
+
 
     // Start is called before the first frame update
     void Start()
